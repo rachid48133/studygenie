@@ -1,0 +1,2 @@
+start powershell -NoExit -Command "cd C:\studygenie; venv\Scripts\Activate.ps1; cd backend; python main.py"
+start powershell -NoExit -Command "cd C:\studygenie; venv\Scripts\Activate.ps1; streamlit run frontend\app.py"
