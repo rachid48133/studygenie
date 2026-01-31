@@ -48,7 +48,7 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
     full_name = Column(String)
-    subscription_type = Column(String, default="pro") # Forcé en PRO pour tes testeurs
+    subscription_type = Column(String, default="pro") 
     courses = relationship("Course", back_populates="user", cascade="all, delete-orphan")
 
     def to_dict(self):
@@ -121,11 +121,11 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 # ============================================
 # INITIALISATION FASTAPI
 # ============================================
-app = FastAPI(title="StudyGenie API - Version Complète")
+app = FastAPI(title="StudyGenie API - Version Finale")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # ============================================
-# ROUTES AUTHENTIFICATION
+# ROUTES AUTHENTIFICATION (SUPPORT JSON)
 # ============================================
 
 @app.post("/api/register")
@@ -185,7 +185,6 @@ async def upload_file(course_id: int, file: UploadFile = File(...), current_user
     new_file = CourseFile(course_id=course.id, filename=file.filename, file_path=str(file_path))
     db.add(new_file)
     
-    # Indexation RAG immédiate
     metadata = index_course(user_id=current_user.id, course_id=course.id, file_path=str(file_path), course_name=course.name)
     course.indexed = True
     db.commit()
@@ -200,24 +199,17 @@ async def api_generate_summary(data: dict, current_user: User = Depends(get_curr
     course_id = data.get('course_id')
     num_pages = int(data.get('num_pages', 5) or 5)
     
-    # On force l'extraction massive (Top_k élevé)
     dynamic_top_k = min(20 + (num_pages * 5), 100)
-    
-    # Consigne de rédaction forcée
     target_mode = f"SUPPORT DE COURS EXHAUSTIF DE {num_pages} PAGES. DÉVELOPPE CHAQUE CONCEPT."
 
     try:
-        # 1. Récupération du contenu via le moteur RAG amélioré
         result_rag = search_and_answer_improved(
             user_id=current_user.id, 
             course_id=course_id, 
             question="Donne-moi tous les détails techniques et explicatifs de ce cours.", 
             top_k=dynamic_top_k
         )
-        
         content = "\n\n".join([c.get('text', '') for c in result_rag['sources']])
-        
-        # 2. Génération du résumé volumineux
         summary = generate_summary(
             course_content=content, 
             length=target_mode, 
@@ -228,9 +220,6 @@ async def api_generate_summary(data: dict, current_user: User = Depends(get_curr
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur génération: {str(e)}")
 
-# ============================================
-# LANCEMENT
-# ============================================
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
