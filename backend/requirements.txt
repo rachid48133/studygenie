@@ -1,61 +1,28 @@
-# requirements.txt - StudyGenie Backend (Production Ready)
-# Testé et validé - 31 janvier 2026
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+python-dotenv==1.0.0
+pydantic==2.10.3
+pydantic-settings==2.7.0
+SQLAlchemy==2.0.45
+psycopg2-binary==2.9.9
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.2
+python-multipart==0.0.9
+PyJWT==2.10.1
+email-validator==2.3.0
+anthropic==0.40.0
+openai==1.58.1
+voyageai==0.2.3
+faiss-cpu==1.13.2
+PyPDF2==3.0.1
+python-docx==1.1.0
+python-pptx==0.6.23
+reportlab==4.0.9
+Pillow==12.1.0
+pytesseract==0.3.13
+requests==2.31.0
+typing-extensions==4.15.0
+gunicorn==24.0.0
+stripe==14.1.0
 
-# ============================================
-# CORE FRAMEWORK
-# ============================================
-[cite_start]fastapi==0.128.0 [cite: 1]
-[cite_start]uvicorn[standard]==0.40.0 [cite: 1]
-[cite_start]python-dotenv==1.0.0 [cite: 1]
-[cite_start]pydantic==2.10.3 [cite: 1]
-[cite_start]pydantic-settings==2.7.0 [cite: 1]
-
-# ============================================
-# DATABASE
-# ============================================
-[cite_start]SQLAlchemy==2.0.45 [cite: 1]
-psycopg2-binary==2.9.9 # AJOUTÉ : Requis pour la connexion PostgreSQL sur Render
-
-# ============================================
-# AUTHENTICATION & SECURITY
-# ============================================
-[cite_start]python-jose[cryptography]==3.3.0 [cite: 1]
-[cite_start]passlib[bcrypt]==1.7.4 [cite: 1]
-[cite_start]bcrypt==4.1.2 [cite: 1]
-[cite_start]python-multipart==0.0.9 [cite: 1]
-[cite_start]PyJWT==2.10.1 [cite: 1]
-[cite_start]email-validator==2.3.0 [cite: 1]
-
-# ============================================
-# AI & ML
-# ============================================
-[cite_start]anthropic==0.40.0 [cite: 1]
-[cite_start]openai==1.58.1 [cite: 1]
-[cite_start]voyageai==0.2.3 [cite: 1]
-[cite_start]faiss-cpu==1.13.2 [cite: 1]
-
-# ============================================
-# DOCUMENT PROCESSING
-# ============================================
-[cite_start]PyPDF2==3.0.1 [cite: 1]
-[cite_start]python-docx==1.1.0 [cite: 1]
-[cite_start]python-pptx==0.6.23 [cite: 1]
-[cite_start]reportlab==4.0.9 [cite: 1]
-[cite_start]Pillow==12.1.0 [cite: 1]
-[cite_start]pytesseract==0.3.13 [cite: 1]
-
-# ============================================
-# UTILS
-# ============================================
-[cite_start]requests==2.31.0 [cite: 1]
-[cite_start]typing-extensions==4.15.0 [cite: 1]
-
-# ============================================
-# PRODUCTION
-# ============================================
-[cite_start]gunicorn==24.0.0 [cite: 1]
-
-# ============================================
-# PAYMENTS
-# ============================================
-[cite_start]stripe==14.1.0 [cite: 1]
