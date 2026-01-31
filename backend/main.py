@@ -292,14 +292,6 @@ class QuestionRequest(BaseModel):
 
 app = FastAPI(title="StudyGenie API", version="1.0.0")
 
-from fastapi import Depends
-from sqlalchemy.orm import Session
-from app.database import get_db
-
-@app.get("/test-db")
-def test_db(db: Session = Depends(get_db)):
-    return {"status": "ok"}
-
 # CORS
 app.add_middleware(
     CORSMiddleware,
